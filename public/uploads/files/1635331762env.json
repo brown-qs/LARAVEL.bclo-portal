@@ -1,0 +1,5 @@
+{
+    "appUrl": "http://dev.payperwin.com:8080",
+    "appAdminUrl": "http://dev.payperwin.com:8080/admin",
+    "port": 80
+}

@@ -15,14 +15,17 @@ class CreateEstatesTable extends Migration
     {
         Schema::create('estates', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('user_id')->nullable();
-            $table->string('apartmentname')->nullable();
-            $table->integer('price')->default(0);
-            $table->string('location')->nullable();
-            $table->string('description')->nullable();
-            $table->string('picture')->nullable('picture.png');
-           
-           
+            $table->bigInteger('user_id')->unsigned();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->tinyInteger('is_paid')->default(0);
+            $table->string('land_id');
+            $table->tinyInteger('has_mailbox');
+            $table->string('phone');
+            $table->string('email');
+            $table->string('last_name');
+            $table->string('first_name');
+            $table->string('address');
+
             $table->timestamps();
         });
     }

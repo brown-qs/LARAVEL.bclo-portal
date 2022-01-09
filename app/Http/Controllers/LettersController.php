@@ -4,11 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Session;
-use App\Comment;
+use App\Letter;
 use App\Estate;
 use Auth;
 
-class CommentsController extends Controller
+class LettersController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,12 +18,13 @@ class CommentsController extends Controller
     public function index($id)
     {
         //
-         
+
     }
 
-    public function allcomments(){
-        $comments = Comment::orderby('created_at', 'desc')->paginate(4);
-        return view('comments.allcomments')->with('comments', $comments);
+    public function allletters()
+    {
+        $comments = Letter::orderby('created_at', 'desc')->paginate(4);
+        return view('letters.allcomments')->with('comments', $comments);
     }
 
     /**
@@ -35,10 +36,10 @@ class CommentsController extends Controller
     {
         //
         $estate = Estate::findOrFail($id);
-        
-        $comments = Comment::where('estate_id', $id)->orderby('created_at','desc')->paginate(3);
-       return view('comments.create')->with('estate', $estate)
-                                    ->with('comments', $comments);    
+
+        $comments = Letter::where('estate_id', $id)->orderby('created_at', 'desc')->paginate(3);
+        return view('letters.create')->with('estate', $estate)
+            ->with('comments', $comments);
     }
 
     /**
@@ -50,19 +51,24 @@ class CommentsController extends Controller
     public function store(Request $request)
     {
         //
-        $this->validate($request,[
-            'body' => 'required',
-
+        $this->validate($request, [
+            'note' => 'required',
+            'file' => 'required',
         ]);
-        
-        $addcomment = Comment::create([
+
+        $featured = $request->file;
+        $featured_new_name = time() . $featured->getClientOriginalName();
+        $featured->move('uploads/files', $featured_new_name);
+
+        $addcomment = Letter::create([
             'user_id' => Auth::id(),
-            'estate_id' =>$request->id,
-            'body' => $request->body,
+            'estate_id' => $request->id,
+            'note' => $request->note,
+            'file' => $featured_new_name,
 
         ]);
 
-        Session::flash('success', 'Comment successfully added');
+        Session::flash('success', 'Letter successfully added');
         return redirect()->back();
     }
 
@@ -86,9 +92,9 @@ class CommentsController extends Controller
     public function edit($id)
     {
         //
-        $comment = Comment::findOrFail($id);
+        $comment = Letter::findOrFail($id);
 
-        return view('comments.edit')->with('comment', $comment);
+        return view('letters.edit')->with('comment', $comment);
     }
 
     /**
@@ -101,18 +107,22 @@ class CommentsController extends Controller
     public function update(Request $request, $id)
     {
         //
-        $this->validate($request,[
-            'body' => 'required',
+        $this->validate($request, [
+            'note' => 'required',
         ]);
-        $comment = Comment::findOrFail($id);
+        $comment = Letter::findOrFail($id);
 
-        $comment->body = $request->body;
+        if ($request->hasFile('file') && $request->file('file')->isValid()) {
+            $featured = $request->file;
+            $featured_new_name = time() . $featured->getClientOriginalName();
+            $featured->move('uploads/files', $featured_new_name);
+            $comment->file = $featured_new_name;
+        }
+        $comment->note = $request->note;
         $comment->save();
 
         Session::flash('success', 'Update is successfully made');
         return redirect()->route('frontend.singlehouse', ["id" => $comment->estate_id]);
-
-            
     }
 
     /**
@@ -124,9 +134,9 @@ class CommentsController extends Controller
     public function destroy($id)
     {
         //
-        $comment = Comment::findOrFail($id);
+        $comment = Letter::findOrFail($id);
         $comment->delete();
-        Session::flash('success', 'This comment is removed successfully');
+        Session::flash('success', 'This Letter is removed successfully');
         return redirect()->back();
     }
 }

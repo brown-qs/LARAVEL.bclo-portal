@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>Estate Ms</title>
+    <title>BCLO</title>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
@@ -39,12 +39,12 @@
           <div class="container">
             <div class="row">
               <div class="col-md-12 text-center">
-                <h1 class="display-3 mb-4">Estate Management System
+                <h1 class="display-3 mb-4">BCLO
                 </h1>
-                <p class="lead">New Guest? Create an account and have full access otherwise login if already have an account</p>
+                <!-- <p class="lead">New Guest? Create an account and have full access otherwise login if already have an account</p> -->
                 <hr />
-                <a href="{{route('register')}}" class="btn btn-lg pink darken-1 mr-2 white-text">Register</a>
-                <a href="{{route('login')}}" class="btn btn-lg btn-light">Login</a>
+                <a href="{{route('login')}}" class="btn btn-lg light-blue darken-1 mr-2 white-text">Go to Login</a>
+                <!-- <a href="{{route('login')}}" class="btn btn-lg btn-light">Login</a> -->
               </div>
             </div>
           </div>
@@ -79,10 +79,6 @@
         </script>
 
 
-    <footer class="bg-dark text-white mt-5 p-4 text-center">
-        <p>Copyright &copy; <span id="year"></span> Estate Management System</p>
-      </footer>
-    
       <script src="assets/js/bootstrap.min.js"></script>
     
       <script>

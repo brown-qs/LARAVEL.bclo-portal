@@ -27,6 +27,11 @@ class LoginController extends Controller
      */
     //protected $redirectTo = '/home';
 
+    public function username()
+    {
+        return 'username';
+    }
+
     /**
      * Create a new controller instance.
      *
@@ -35,16 +40,12 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
-        
     }
 
-    protected function redirectTo(){
-        if(\Auth::check()){
-            if(\Auth::user()->isAdmin()){
-                return '/home';
-            }else{
-                return '/visitorsdashboard';
-            }
+    protected function redirectTo()
+    {
+        if (\Auth::check()) {
+            return '/dashboard';
         }
     }
 }

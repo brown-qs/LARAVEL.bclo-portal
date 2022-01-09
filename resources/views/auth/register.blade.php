@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>Estate Ms</title>
+    <title>BCLO</title>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
@@ -45,7 +45,7 @@
                                     @csrf
             
                                     <div class="input-field">
-                                            <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus placeholder="Name">
+                                            <input id="username" type="text" class="form-control @error('username') is-invalid @enderror" name="username" value="{{ old('username') }}" required autocomplete="username" autofocus placeholder="Name">
                                            
             
                                             @error('name')
@@ -56,15 +56,6 @@
                                         </div>
                                    
             
-                                    <div class="input-field">     
-                                            <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" placeholder="Email">
-                                           
-                                            @error('email')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
-                                        </div>
                                     
             
                                     <div class="input-field">
@@ -90,7 +81,7 @@
             
                                     <div class="input-field mb-0">
                                         <div class="col-md-6 offset-md-4">
-                                            <button type="submit" class="btn pink darken-1 white-text">
+                                            <button type="submit" class="btn light-blue darken-1 white-text">
                                                 {{ __('Register') }}
                                             </button>
                                         </div>

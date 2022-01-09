@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'Estate Ms'),
+    'name' => env('APP_NAME', 'CMS Data entry system'),
 
     /*
     |--------------------------------------------------------------------------
